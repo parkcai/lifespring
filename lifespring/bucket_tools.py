@@ -1,3 +1,4 @@
+from .typing import Any, Dict
 from .lifespring import lifespring
 
 
@@ -5,6 +6,7 @@ __all__ = [
     "create_bucket",
     "revalue_bucket",
     "archive_bucket",
+    "produce_value",
     "consume_value",
     "transfer_value",
 ]
@@ -14,9 +16,9 @@ def create_bucket(
     bucket: str,
     bucket_type: str = "account",
     note: str = "",
-):
+)-> Dict[str, Any]:
     
-    pass
+    return {}
 
 
 def revalue_bucket(
@@ -25,17 +27,27 @@ def revalue_bucket(
     value_unit: str,
     bucket_type: str = "account",
     note: str = "",
-):
+)-> Dict[str, Any]:
     
-    pass
+    return {}
 
 
 def archive_bucket(
     bucket: str,
     note: str = "",
-):
+)-> Dict[str, Any]:
     
-    pass
+    return {}
+
+
+def produce_value(
+    value: float,
+    value_unit: str,
+    bucket: str,
+    note: str = "",
+)-> Dict[str, Any]:
+    
+    return {}
 
 
 def consume_value(
@@ -43,9 +55,9 @@ def consume_value(
     value_unit: str,
     bucket: str,
     note: str = "",
-):
+)-> Dict[str, Any]:
     
-    pass
+    return {}
 
 
 def transfer_value(
@@ -54,6 +66,6 @@ def transfer_value(
     source_bucket: str,
     destination_bucket: str,
     note: str = "",
-):
+)-> Dict[str, Any]:
     
-    pass
+    return {}
