@@ -85,7 +85,7 @@ class LifeSpring:
             bucket_type = bucket_data.bucket_type
             status_string = "      [Archived]" \
                 if bucket_data.bucket_status != "alive" else ""
-            print(f"    {no}. ({bucket_type}) {bucket}: {value:.2f} {value_unit}{status_string}")
+            print(f"    {no + 1}. ({bucket_type}) {bucket}: {value:.2f} {value_unit}{status_string}")
 
 
 lifespring = LifeSpring(
