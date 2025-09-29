@@ -31,17 +31,22 @@ class LifeSpring:
     
     def __init__(
         self,
-        database_path: str,
         snapshot_threshold: int,
         uid_length: int,
     )-> None:
         
-        self._database_path = database_path
         self._event_manager = EventManager(
             transfer_func = lifespring_transfer_func,
             snapshot_threshold = snapshot_threshold,
             uid_length = uid_length,
         )
+        
+        
+    def set_database_path(
+        self,
+        database_path: str,
+    )-> None:
+        self._database_path = database_path
         self._event_sourcing_path = f"{self._database_path}{seperator}event_sourcing.pickle"
         if os.path.exists(self._event_sourcing_path):
             self._event_manager.loads(file_path=self._event_sourcing_path)
@@ -89,7 +94,6 @@ class LifeSpring:
 
 
 lifespring = LifeSpring(
-    database_path = "data",
     snapshot_threshold = 10,
     uid_length = 16,
 )

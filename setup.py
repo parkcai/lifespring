@@ -4,7 +4,7 @@ from setuptools import find_packages
 
 setup(
     name = "lifespring",
-    version = "0.0.0.8",
+    version = "0.0.0.9",
     packages = find_packages(),
     description = "A personal account keeper.",
     author = "parkcai",

@@ -3,6 +3,7 @@ from .lifespring import lifespring
 
 
 __all__ = [
+    "set_database_path",
     "create_bucket",
     "revalue_bucket",
     "archive_bucket",
@@ -11,6 +12,13 @@ __all__ = [
     "transfer_value",
     "list_buckets",
 ]
+
+
+def set_database_path(
+    database_path: str,
+):
+    
+    lifespring.set_database_path(database_path)
 
 
 def create_bucket(
