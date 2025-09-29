@@ -69,6 +69,9 @@ class LifeSpring:
         latest_state: LifeSpringState = self._event_manager.fetch_latest_state()
         bucket_to_data = latest_state.bucket_to_data
         
+        if not len(bucket_to_data):
+            print("You've got no buckets yet!")
+        
         print(f"Your buckets:")
         for no, (bucket, bucket_data) in enumerate(sorted(
             bucket_to_data.items(),
