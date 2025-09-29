@@ -60,6 +60,28 @@ class LifeSpring:
 
         self._event_manager.update(event=event)
         self._event_manager.dumps(file_path=self._event_sourcing_path)
+        
+        
+    def list_buckets(
+        self,
+    )-> None:
+        
+        latest_state: LifeSpringState = self._event_manager.fetch_latest_state()
+        bucket_to_data = latest_state.bucket_to_data
+        
+        print(f"Your buckets:")
+        for no, (bucket, bucket_data) in enumerate(sorted(
+            bucket_to_data.items(),
+            key = lambda item: float("-inf") \
+                if item[1].bucket_status != "alive" else item[1].value,
+            reverse = True,
+        )):
+            value = bucket_data.value
+            value_unit = bucket_data.value_unit
+            bucket_type = bucket_data.bucket_type
+            status_string = "      [Archived]" \
+                if bucket_data.bucket_status != "alive" else ""
+            print(f"    {no}. ({bucket_type}) {bucket}: {value:.2f} {value_unit}{status_string}")
 
 
 lifespring = LifeSpring(

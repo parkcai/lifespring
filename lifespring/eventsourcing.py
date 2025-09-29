@@ -92,12 +92,15 @@ class EventManager:
     )-> str:
         
         _id = self._get_uid()
+        latest_state = self._fetch_latest_state()
         
         if self._next_tick % self._snapshot_threshold:
-            state = self._fetch_latest_state()
+            state = latest_state
             self._latest_snapshot_tick = self._next_tick
         else:
             state = None
+            
+        _ = self._transfer_func(latest_state, event)
             
         self._event_sequence.append({
             "id": _id,
