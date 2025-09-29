@@ -9,6 +9,7 @@ __all__ = [
     "produce_value",
     "consume_value",
     "transfer_value",
+    "list_buckets",
 ]
 
 
@@ -122,3 +123,9 @@ def transfer_value(
             })
         )
     )
+    
+    
+def list_buckets(
+):
+    
+    lifespring.list_buckets()
