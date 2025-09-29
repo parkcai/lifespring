@@ -1,4 +1,4 @@
-from .typing import Any, Dict
+from .utils import *
 from .lifespring import lifespring
 
 
@@ -14,58 +14,111 @@ __all__ = [
 
 def create_bucket(
     bucket: str,
-    bucket_type: str = "account",
+    bucket_type: str,
+    value_unit: str,
     note: str = "",
-)-> Dict[str, Any]:
+):
     
-    return {}
+    lifespring.update(
+        event = LifeSpringEvent(
+            event_type = "create_bucket",
+            note = note,
+            extra_info = serialize_json({
+                "bucket": bucket,
+                "bucket_type": bucket_type,
+                "value_unit": value_unit,
+            })
+        )
+    )
 
 
 def revalue_bucket(
     bucket: str,
     value: float,
-    value_unit: str,
-    bucket_type: str = "account",
     note: str = "",
-)-> Dict[str, Any]:
+):
     
-    return {}
+    lifespring.update(
+        event = LifeSpringEvent(
+            event_type = "revalue_bucket",
+            note = note,
+            extra_info = serialize_json({
+                "bucket": bucket,
+                "value": value,
+            })
+        )
+    )
 
 
 def archive_bucket(
     bucket: str,
     note: str = "",
-)-> Dict[str, Any]:
+):
     
-    return {}
+    lifespring.update(
+        event = LifeSpringEvent(
+            event_type = "archive_bucket",
+            note = note,
+            extra_info = serialize_json({
+                "bucket": bucket,
+            })
+        )
+    )
 
 
 def produce_value(
     value: float,
-    value_unit: str,
     bucket: str,
     note: str = "",
-)-> Dict[str, Any]:
+):
     
-    return {}
+    lifespring.update(
+        event = LifeSpringEvent(
+            event_type = "produce_value",
+            note = note,
+            extra_info = serialize_json({
+                "bucket": bucket,
+                "value": value,
+            })
+        )
+    )
 
 
 def consume_value(
     value: float,
-    value_unit: str,
     bucket: str,
     note: str = "",
-)-> Dict[str, Any]:
+):
     
-    return {}
+    lifespring.update(
+        event = LifeSpringEvent(
+            event_type = "consume_value",
+            note = note,
+            extra_info = serialize_json({
+                "bucket": bucket,
+                "value": value,
+            })
+        )
+    )
 
 
 def transfer_value(
     value: float,
-    value_unit: str,
     source_bucket: str,
     destination_bucket: str,
+    exchange_rate: float = 1.0,
     note: str = "",
-)-> Dict[str, Any]:
+):
     
-    return {}
+    lifespring.update(
+        event = LifeSpringEvent(
+            event_type = "transfer_value",
+            note = note,
+            extra_info = serialize_json({
+                "source_bucket": source_bucket,
+                "destination_bucket": destination_bucket,
+                "value": value,
+                "exchange_rate": exchange_rate,
+            })
+        )
+    )

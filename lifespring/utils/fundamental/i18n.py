@@ -2,7 +2,7 @@ import os
 import locale
 import gettext
 from pathlib import Path
-from .typing import *
+from typing import Callable
 
 
 __all__ = [

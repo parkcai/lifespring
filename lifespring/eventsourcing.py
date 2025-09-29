@@ -1,7 +1,4 @@
-from .i18n import *
-from .typing import *
-from .pywheels import *
-from .external import *
+from .utils import *
 
 
 __all__ = [
@@ -9,11 +6,15 @@ __all__ = [
 ]
 
 
+_State = TypeVar("_State")
+_Event = TypeVar("_Event")
+
+
 class EventManager:
     
     def __init__(
         self,
-        transfer_func: Callable[[Any, Any], Any],
+        transfer_func: Callable[[_State, _Event], _State],
         snapshot_threshold: int,
         uid_length: int = 16,
     )-> None:
@@ -29,7 +30,26 @@ class EventManager:
         self._ids: Set[str] = set()
         self._next_tick = 0
         self._latest_snapshot_tick = -1
-    
+        
+        
+    def initialize(
+        self,
+        initial_state: Any,
+    )-> None:
+        
+        _id = self._get_uid()
+        
+        self._event_sequence = [{
+            "id": _id,
+            "time": get_current_time(),
+            "event": None,
+            "state": initial_state,
+        }]
+        self._id_to_tick[_id] = 0
+        self._ids = set({_id})
+        self._next_tick = 1
+        self._latest_snapshot_tick = 0
+
     
     def loads(
         self,
@@ -71,7 +91,7 @@ class EventManager:
         event: Any,
     )-> str:
         
-        _id = self._uid_generator.generate(uid_length=self._uid_length)
+        _id = self._get_uid()
         
         if self._next_tick % self._snapshot_threshold:
             state = self._fetch_latest_state()
@@ -81,6 +101,7 @@ class EventManager:
             
         self._event_sequence.append({
             "id": _id,
+            "time": get_current_time(),
             "event": event,
             "state": state,
         })
@@ -98,6 +119,15 @@ class EventManager:
         return self._fetch_latest_state()
     
     
+    def _get_uid(
+        self,
+    )-> str:
+        
+        return self._uid_generator.generate(
+            uid_length = self._uid_length
+        )
+    
+    
     def _fetch_latest_state(
         self,
     )-> Any:
@@ -110,7 +140,7 @@ class EventManager:
             event = self._event_sequence[tick]["event"]
             state = self._transfer_func(state, event)
         return state
-            
+    
     
     
     

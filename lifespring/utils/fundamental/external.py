@@ -5,7 +5,10 @@ import pickle
 import random
 import tempfile
 from time import sleep
+from copy import deepcopy
 from threading import Lock
+from datetime import datetime
+from dataclasses import dataclass
 from os.path import sep as seperator
 
 
@@ -17,6 +20,9 @@ __all__ = [
     "sleep",
     "pickle",
     "random",
+    "deepcopy",
     "tempfile",
+    "datetime",
+    "dataclass",
     "seperator",
 ]
