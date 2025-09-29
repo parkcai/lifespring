@@ -71,6 +71,7 @@ class LifeSpring:
         
         if not len(bucket_to_data):
             print("You've got no buckets yet!")
+            return
         
         print(f"Your buckets:")
         for no, (bucket, bucket_data) in enumerate(sorted(
