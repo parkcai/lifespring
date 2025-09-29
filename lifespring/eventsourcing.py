@@ -94,7 +94,7 @@ class EventManager:
         _id = self._get_uid()
         latest_state = self._fetch_latest_state()
         
-        if self._next_tick % self._snapshot_threshold:
+        if self._next_tick % self._snapshot_threshold == 0:
             state = latest_state
             self._latest_snapshot_tick = self._next_tick
         else:
