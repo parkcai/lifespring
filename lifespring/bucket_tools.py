@@ -5,12 +5,13 @@ from .lifespring import lifespring
 __all__ = [
     "set_database_path",
     "create_bucket",
+    "list_buckets",
     "revalue_bucket",
     "archive_bucket",
+    "dearchive_bucket",
     "produce_value",
     "consume_value",
     "transfer_value",
-    "list_buckets",
 ]
 
 
@@ -41,6 +42,12 @@ def create_bucket(
     )
 
 
+def list_buckets(
+):
+    
+    lifespring.list_buckets()
+
+
 def revalue_bucket(
     bucket: str,
     value: float,
@@ -67,6 +74,22 @@ def archive_bucket(
     lifespring.update(
         event = LifeSpringEvent(
             event_type = "archive_bucket",
+            note = note,
+            extra_info = serialize_json({
+                "bucket": bucket,
+            })
+        )
+    )
+    
+    
+def dearchive_bucket(
+    bucket: str,
+    note: str = "",
+):
+    
+    lifespring.update(
+        event = LifeSpringEvent(
+            event_type = "dearchive_bucket",
             note = note,
             extra_info = serialize_json({
                 "bucket": bucket,
@@ -131,9 +154,3 @@ def transfer_value(
             })
         )
     )
-    
-    
-def list_buckets(
-):
-    
-    lifespring.list_buckets()

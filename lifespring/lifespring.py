@@ -16,6 +16,7 @@ def lifespring_transfer_func(
         "create_bucket": create_bucket_transfer_func,
         "revalue_bucket": revalue_bucket_transfer_func,
         "archive_bucket": archive_bucket_transfer_func,
+        "dearchive_bucket": dearchive_bucket_transfer_func,
         "produce_value": produce_value_transfer_func,
         "consume_value": consume_value_transfer_func,
         "transfer_value": transfer_value_transfer_func,

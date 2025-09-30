@@ -6,6 +6,7 @@ __all__ = [
     "create_bucket_transfer_func",
     "revalue_bucket_transfer_func",
     "archive_bucket_transfer_func",
+    "dearchive_bucket_transfer_func",
     "produce_value_transfer_func",
     "consume_value_transfer_func",
     "transfer_value_transfer_func",
@@ -23,6 +24,13 @@ def create_bucket_transfer_func(
     bucket = extra_info_dict["bucket"]
     bucket_type = extra_info_dict["bucket_type"]
     value_unit = extra_info_dict["value_unit"]
+    
+    if bucket in bucket_to_data:
+        raise RuntimeError(
+            translate(
+                "已存在 bucket %s，无法再次创建！"
+            ) % (bucket)
+        )
 
     bucket_to_data[bucket] = BucketData(
         value = 0.0,
@@ -73,11 +81,49 @@ def archive_bucket_transfer_func(
     value_unit = bucket_to_data[bucket].value_unit
     bucket_type = bucket_to_data[bucket].bucket_type
     
+    if bucket_to_data[bucket].bucket_status == "archived":
+        raise RuntimeError(
+            translate(
+                "bucket %s 已被封存，无法再次封存！"
+            ) % (bucket)
+        )
+    
     bucket_to_data[bucket] = BucketData(
         value = value,
         value_unit = value_unit,
         bucket_type = bucket_type,
         bucket_status = "archived",
+    )
+    return LifeSpringState(
+        bucket_to_data = bucket_to_data,
+    )
+    
+    
+def dearchive_bucket_transfer_func(
+    state: LifeSpringState,
+    event: LifeSpringEvent,
+)-> LifeSpringState:
+    
+    bucket_to_data = deepcopy(state.bucket_to_data)
+    extra_info_dict = deserialize_json(event.extra_info)
+    
+    bucket = extra_info_dict["bucket"]
+    value = bucket_to_data[bucket].value
+    value_unit = bucket_to_data[bucket].value_unit
+    bucket_type = bucket_to_data[bucket].bucket_type
+    
+    if bucket_to_data[bucket].bucket_status != "archived":
+        raise RuntimeError(
+            translate(
+                "bucket %s 未被封存，无法解除封存！"
+            ) % (bucket)
+        )
+    
+    bucket_to_data[bucket] = BucketData(
+        value = value,
+        value_unit = value_unit,
+        bucket_type = bucket_type,
+        bucket_status = "alive",
     )
     return LifeSpringState(
         bucket_to_data = bucket_to_data,

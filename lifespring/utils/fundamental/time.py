@@ -8,7 +8,7 @@ __all__ = [
 ]
 
 
-@dataclass
+@dataclass(order=True)
 class Time:
     year: int
     month: int
