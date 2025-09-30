@@ -10,6 +10,10 @@ Light-weight Python wheels.
 pip install lifespring
 ```
 
+```command
+copy /Y lifespring_imports.py %USERPROFILE%\.ipython\profile_default\startup\lifespring_imports.py
+```
+
 ## 功能
 
 ### file_tools
