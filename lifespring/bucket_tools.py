@@ -101,6 +101,7 @@ def dearchive_bucket(
 def produce_value(
     value: float,
     bucket: str,
+    tags: List[str] = [],
     note: str = "",
 ):
     
@@ -111,6 +112,7 @@ def produce_value(
             extra_info = serialize_json({
                 "bucket": bucket,
                 "value": value,
+                "tags": tags,
             })
         )
     )
@@ -119,6 +121,7 @@ def produce_value(
 def consume_value(
     value: float,
     bucket: str,
+    tags: List[str] = [],
     note: str = "",
 ):
     
@@ -129,6 +132,7 @@ def consume_value(
             extra_info = serialize_json({
                 "bucket": bucket,
                 "value": value,
+                "tags": tags,
             })
         )
     )
