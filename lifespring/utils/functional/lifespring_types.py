@@ -25,4 +25,5 @@ class LifeSpringState:
 class LifeSpringEvent:
     event_type: str
     note: str
+    tags: List[str]
     extra_info: str

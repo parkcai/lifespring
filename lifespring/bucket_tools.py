@@ -36,11 +36,11 @@ def create_bucket(
         event = LifeSpringEvent(
             event_type = "create_bucket",
             note = str(note),
+            tags = safe_tags,
             extra_info = serialize_json({
                 "bucket": str(bucket),
                 "bucket_type": str(bucket_type),
                 "value_unit": str(value_unit),
-                "tags": safe_tags,
             })
         )
     )
@@ -65,10 +65,10 @@ def revalue_bucket(
         event = LifeSpringEvent(
             event_type = "revalue_bucket",
             note = str(note),
+            tags = safe_tags,
             extra_info = serialize_json({
                 "bucket": str(bucket),
                 "value": float(value),
-                "tags": safe_tags,
             })
         )
     )
@@ -86,9 +86,9 @@ def archive_bucket(
         event = LifeSpringEvent(
             event_type = "archive_bucket",
             note = str(note),
+            tags = safe_tags,
             extra_info = serialize_json({
                 "bucket": str(bucket),
-                "tags": safe_tags,
             })
         )
     )
@@ -106,9 +106,9 @@ def dearchive_bucket(
         event = LifeSpringEvent(
             event_type = "dearchive_bucket",
             note = str(note),
+            tags = safe_tags,
             extra_info = serialize_json({
                 "bucket": str(bucket),
-                "tags": safe_tags,
             })
         )
     )
@@ -127,10 +127,10 @@ def produce_value(
         event = LifeSpringEvent(
             event_type = "produce_value",
             note = str(note),
+            tags = safe_tags,
             extra_info = serialize_json({
                 "bucket": str(bucket),
                 "value": float(value),
-                "tags": safe_tags,
             })
         )
     )
@@ -149,10 +149,10 @@ def consume_value(
         event = LifeSpringEvent(
             event_type = "consume_value",
             note = str(note),
+            tags = safe_tags,
             extra_info = serialize_json({
                 "bucket": str(bucket),
                 "value": float(value),
-                "tags": safe_tags,
             })
         )
     )
@@ -173,12 +173,12 @@ def transfer_value(
         event = LifeSpringEvent(
             event_type = "transfer_value",
             note = str(note),
+            tags = safe_tags,
             extra_info = serialize_json({
                 "source_bucket": str(source_bucket),
                 "destination_bucket": str(destination_bucket),
                 "value": float(value),
                 "exchange_rate": float(exchange_rate),
-                "tags": safe_tags,
             })
         )
     )
