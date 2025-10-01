@@ -26,8 +26,11 @@ def create_bucket(
     bucket: str,
     bucket_type: str,
     value_unit: str,
+    tags: List[str] = [],
     note: str = "",
 ):
+    
+    safe_tags = [str(tag) for tag in tags]
     
     lifespring.update(
         event = LifeSpringEvent(
@@ -37,6 +40,7 @@ def create_bucket(
                 "bucket": str(bucket),
                 "bucket_type": str(bucket_type),
                 "value_unit": str(value_unit),
+                "tags": safe_tags,
             })
         )
     )
@@ -51,8 +55,11 @@ def list_buckets(
 def revalue_bucket(
     bucket: str,
     value: float,
+    tags: List[str] = [],
     note: str = "",
 ):
+    
+    safe_tags = [str(tag) for tag in tags]
     
     lifespring.update(
         event = LifeSpringEvent(
@@ -61,6 +68,7 @@ def revalue_bucket(
             extra_info = serialize_json({
                 "bucket": str(bucket),
                 "value": float(value),
+                "tags": safe_tags,
             })
         )
     )
@@ -68,8 +76,11 @@ def revalue_bucket(
 
 def archive_bucket(
     bucket: str,
+    tags: List[str] = [],
     note: str = "",
 ):
+    
+    safe_tags = [str(tag) for tag in tags]
     
     lifespring.update(
         event = LifeSpringEvent(
@@ -77,6 +88,7 @@ def archive_bucket(
             note = str(note),
             extra_info = serialize_json({
                 "bucket": str(bucket),
+                "tags": safe_tags,
             })
         )
     )
@@ -84,8 +96,11 @@ def archive_bucket(
     
 def dearchive_bucket(
     bucket: str,
+    tags: List[str] = [],
     note: str = "",
 ):
+    
+    safe_tags = [str(tag) for tag in tags]
     
     lifespring.update(
         event = LifeSpringEvent(
@@ -93,6 +108,7 @@ def dearchive_bucket(
             note = str(note),
             extra_info = serialize_json({
                 "bucket": str(bucket),
+                "tags": safe_tags,
             })
         )
     )
@@ -147,8 +163,11 @@ def transfer_value(
     source_bucket: str,
     destination_bucket: str,
     exchange_rate: float = 1.0,
+    tags: List[str] = [],
     note: str = "",
 ):
+    
+    safe_tags = [str(tag) for tag in tags]
     
     lifespring.update(
         event = LifeSpringEvent(
@@ -159,6 +178,7 @@ def transfer_value(
                 "destination_bucket": str(destination_bucket),
                 "value": float(value),
                 "exchange_rate": float(exchange_rate),
+                "tags": safe_tags,
             })
         )
     )
